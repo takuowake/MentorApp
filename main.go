@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-r := server.GetRouter()
-r.Run(":8080")
+	r := server.GetRouter()
+	r.Run(":8080")
 }
