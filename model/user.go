@@ -14,8 +14,6 @@ import (
 //USERモデル
 type User struct {
 	gorm.Model
-	//ID uint `gorm:"primaryKey"`
-	//Name string
 	Username string `form:"username" binding:"required" gorm:"unique;not null"`
 	Password string `form:"password" binding:"required"`
 }
