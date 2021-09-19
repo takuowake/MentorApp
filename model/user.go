@@ -149,4 +149,5 @@ func LogoutAction(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Successfully logged out"})
+	log.Println("ログアウトできました")
 }
