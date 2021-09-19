@@ -1,6 +1,7 @@
 package model
 
 import (
+	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -9,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 )
 
 //USERモデル
@@ -100,14 +102,51 @@ func LoginAction(c * gin.Context) {
 	log.Println(dbPassword)
 	//フォームから取得したユーザーパスワード
 	formPassword := c.PostForm("password")
-
 	//ユーザーパスワードの比較
 	if err := CompareHashAndPassword(dbPassword, formPassword); err != nil {
 		log.Println("ログインできませんでした")
-	    c.HTML(http.StatusBadRequest, "login.html", gin.H{"err": err})
+		c.HTML(http.StatusBadRequest, "login.html", gin.H{"err": err})
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Failed to authenticated"})
+		return
 		c.Abort()
 	} else {
 		log.Println("ログインできました")
 		c.Redirect(302, "/")
+
 	}
+
+	session := sessions.Default(c)
+	username := c.PostForm("username")
+	password := c.PostForm("password")
+
+	// Validate from input
+	if strings.Trim(username, " ") == "" || strings.Trim(password, " ") == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Parameters can't be empty"})
+		return
+	}
+
+	// Save the username in the session
+	session.Set("user", username) // In real world usage you'd set this to users ID
+	if err := session.Save(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save session"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully authenticated user"})
+}
+
+
+// Logout is a handler that parses a form and checks for specific data
+func LogoutAction(c *gin.Context) {
+	session := sessions.Default(c)
+	user := session.Get("user")
+	if user == nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid session token"})
+		return
+	}
+	session.Delete("user")
+	if err := session.Save(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save session"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully logged out"})
 }

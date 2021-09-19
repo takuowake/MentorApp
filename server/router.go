@@ -6,8 +6,8 @@ import (
 	"MentorApp/controller/top"
 	"MentorApp/controller/user"
 	"MentorApp/model"
-	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/contrib/sessions"
+	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
@@ -15,16 +15,19 @@ func GetRouter() *gin.Engine {    // *gin.Engineの表記は返り値の型
 	router := gin.Default()
 	router.LoadHTMLGlob("view/*.html")
 
-
 	router.GET("/", top.IndexDisplayAction)
+
 	/*SessionCookieの設定*/
 	store := sessions.NewCookieStore([]byte("secret"))
 	router.Use(sessions.Sessions("mysession", store))
+
+	router.GET("/logout", model.LogoutAction)
 	/*認証済みのアクセス可能なグループ*/
-	authUserGroup := router.Group("/auth")
-	authUserGroup.Use(model.AuthRequired())
+	authUserGroup := router.Group("/private")
+	authUserGroup.Use(model.AuthRequired)
 	{
-		authUserGroup.GET("/getSample", handler.getSample)
+		authUserGroup.GET("/me", me)
+		authUserGroup.GET("/status", status)
 	}
 
 	router.GET("/login", model.LoginModel)
@@ -46,7 +49,9 @@ func GetRouter() *gin.Engine {    // *gin.Engineの表記は返り値の型
 }
 
 func me(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{})
+	session := sessions.Default(c)
+	username := session.Get("user")
+	c.JSON(http.StatusOK, gin.H{"user": username})
 }
 
 func status(c *gin.Context) {

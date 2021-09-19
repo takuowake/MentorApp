@@ -1,19 +1,20 @@
 package model
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/contrib/sessions"
+	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-func AuthRequired() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		session := sessions.Default(c)
-		user := session.Get("user")
-		if user == nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid session token"})
-		} else {
-			c.Next()
-		}
+/*AuthRequired は、セッションをチェックするミドルウェア*/
+func AuthRequired(c *gin.Context) {
+	session := sessions.Default(c)
+	user := session.Get("user")
+	if user == nil {
+		// Abort the request with the appropriate error code
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "unauthorized"})
+		return
 	}
+	// Continue down the chain to handler etc
+	c.Next()
 }

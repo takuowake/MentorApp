@@ -14,5 +14,16 @@
 <a href="/user/payment"><h3>支払い管理</h3></a>
 
 <a href="/admin"><h3>管理者画面</h3></a>
+
+<div class="input">
+    <p>{{.err}}</p>
+    <form action="/logout" method="get">
+        <p><input type="submit" value="ログアウト" /></p>
+    </form>
+</div>
+
+<a href="/private/me"><p>ユーザー情報</p></a>
+<a href="/private/status"><p>ログイン状況</p></a>
+
 </body>
 </html>
