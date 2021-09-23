@@ -8,11 +8,22 @@
 <h1>トップ</h1>
 <a href="/user"><h3>プラン管理</h3></a>
 <a href="/plan"><h3>プラン一覧</h3></a>
-<a href="/user/login"><h3>ログイン</h3></a>
+<a href="/login"><h3>ログイン</h3></a>
 <a href="/signup"><h3>会員登録</h3></a>
 <a href="/user/mypage"><h3>マイページ</h3></a>
 <a href="/user/payment"><h3>支払い管理</h3></a>
 
 <a href="/admin"><h3>管理者画面</h3></a>
+
+<div class="input">
+    <p>{{.err}}</p>
+    <form action="/logout" method="get">
+        <p><input type="submit" value="ログアウト" /></p>
+    </form>
+</div>
+
+<a href="/private/me"><p>ユーザー情報</p></a>
+<a href="/private/status"><p>ログイン状況</p></a>
+
 </body>
 </html>
