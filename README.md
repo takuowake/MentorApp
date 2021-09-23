@@ -44,7 +44,8 @@
 広告料＝2万/月<br>
 <br>
 ### Unfair Advantage（圧倒的な優位性）
-・既存のサービスがない<br>
+・既存のサービスがない<br>[ゼミ春学期発表.pptx](https://github.com/takuowake/MentorApp/files/7217453/default.pptx)
+
 ・多様な大学院出身のメンター<br>
 <br>
 ### Key Metrics（主要指標）
