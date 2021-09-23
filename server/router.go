@@ -13,7 +13,7 @@ import (
 
 func GetRouter() *gin.Engine {    // *gin.Engineの表記は返り値の型
 	router := gin.Default()
-	router.LoadHTMLGlob("views/static/*.html")
+	router.LoadHTMLGlob("view/*.html")
 
 	router.GET("/", top.IndexDisplayAction)
 
