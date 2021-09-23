@@ -38,7 +38,7 @@ So, I will develop a place for exchange between graduate students and those who 
 
 ---
 
-### Channel
+## Channel
 ##### ・The people who wish to go on to graduate school
 ◯Advertise on a blog about going on to graduate school.<br>
 ◯Expect web serch and word-of-mouth
@@ -48,7 +48,7 @@ So, I will develop a place for exchange between graduate students and those who 
 
 ---
 
-### Revenue Stream
+## Revenue Stream
 ##### Our Revenue
 ◯Advertising revenue: 1pv:0.2yen〜0.4yen<br>
 ◯Commission revenue: 15%<br>
@@ -60,19 +60,19 @@ So, I will develop a place for exchange between graduate students and those who 
 
 ---
 
-### Cost Structure
+## Cost Structure
 ◯Server and Domain costs: 50000yen~200000yen/month<br>
 ◯Advertising cost: 20000/month<br>
 <br>
 
 ---
 
-### Unfair Advantage
+## Unfair Advantage
 ◯There is no existing service.
 
 ---
 
-### Key Metrics
+## Key Metrics
 ○Number of active users<br>
 ○Number of Accesses<br>
 ○Sales<br>
