@@ -1,5 +1,3 @@
-# MentorApp
-## 企画書
 ### Customer Segment（カスタマーセグメント）
 大学生・社会人<br>
 →博士課程に進学するか迷っている人<br>
