@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 )
 
 //USERモデル
@@ -18,6 +19,12 @@ type User struct {
 	gorm.Model
 	Username string `form:"username" binding:"required" gorm:"unique;not null"`
 	Password string `form:"password" binding:"required"`
+	EmailAddress string
+	FirstName string
+	FirstNameKana string
+	LastName string
+	LastNameKana string
+	LoginAt time.Time
 }
 
 func gormConnect() *gorm.DB {
