@@ -142,7 +142,7 @@ func LoginAction(c * gin.Context) {
 }
 
 
-// Logout is a handler that parses a form and checks for specific data
+// LogoutAction is a handler that parses a form and checks for specific data
 func LogoutAction(c *gin.Context) {
 	session := sessions.Default(c)
 	user := session.Get("user")
