@@ -37,7 +37,7 @@ func GetRouter() *gin.Engine {    // *gin.Engineの表記は返り値の型
 	router.GET("/plan", plan.ListDisplayAction)
 	router.GET("/user", user.UserPlanManageAction)
 	router.GET("/user/add/:id", model.PlanModel)
-	router.POST("/user/edit/:id", model.CreatePlan)
+	//router.POST("/user/edit/:id", model.CreatePlan)
 	router.GET("/user/mypage", user.UserMyPageAction)
 	router.GET("/user/message", user.UserMessageAction)
 	router.GET("/user/payment", user.PaymentManageAction)

@@ -17,6 +17,7 @@ import (
 //USERモデル
 type User struct {
 	gorm.Model
+	ID string `gorm:"primaryKey"`
 	Username string `form:"username" binding:"required" gorm:"unique;not null"`
 	Password string `form:"password" binding:"required"`
 	EmailAddress string
@@ -25,6 +26,10 @@ type User struct {
 	LastName string
 	LastNameKana string
 	LoginAt time.Time
+	birthday int
+	occupation string
+	sex string
+	rank int
 }
 
 func gormConnect() *gorm.DB {
