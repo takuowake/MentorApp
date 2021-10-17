@@ -26,10 +26,10 @@ type User struct {
 	LastName string
 	LastNameKana string
 	LoginAt time.Time
-	birthday int
-	occupation string
-	sex string
-	rank int
+	Birthday time.Time
+	Occupation string
+	Sex string
+	Rank uint8
 }
 
 func gormConnect() *gorm.DB {

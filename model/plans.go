@@ -8,20 +8,14 @@ import (
 type Plan struct {
 	gorm.Model
 	ID string `gorm:"primaryKey"`
-	UserID int
+	UserID uint16
 	User User
-	CategoryID int
+	CategoryID uint16
 	Category Category
-	name string `form:"name" binding:"required"`
-	description string `form:"title" binding:"required"`
-	price int `form:"title" binding:"required"`
-	rank int
-}
-
-type Category struct {
-	ID int
-	name string
-	states string
+	Name string `form:"name" binding:"required"`
+	Description string `form:"title" binding:"required"`
+	Price uint32 `form:"title" binding:"required"`
+	Rank uint8
 }
 
 func PlanModel(c *gin.Context) {

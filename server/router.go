@@ -2,7 +2,6 @@ package server
 
 import (
 	"MentorApp/controller/admin"
-	"MentorApp/controller/plan"
 	"MentorApp/controller/top"
 	"MentorApp/controller/user"
 	"MentorApp/model"
@@ -34,7 +33,7 @@ func GetRouter() *gin.Engine {    // *gin.Engineの表記は返り値の型
 	router.POST("/login", model.LoginAction)
 	router.GET("/signup", model.SignUpModel)
 	router.POST("/signup", model.SignUpAction)
-	router.GET("/plan", plan.ListDisplayAction)
+	//router.GET("/plan", plan.ListDisplayAction)
 	router.GET("/user", user.UserPlanManageAction)
 	router.GET("/user/add/:id", model.PlanModel)
 	//router.POST("/user/edit/:id", model.CreatePlan)
