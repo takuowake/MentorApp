@@ -7,10 +7,10 @@ import (
 
 type Plan struct {
 	gorm.Model
-	ID string `gorm:"primaryKey"`
-	UserID uint16
+	ID uint64 `json:"id" gorm:"primaryKey" gorm:"autoIncrement"`
+	UserID uint64
 	User User
-	CategoryID uint16
+	CategoryID uint8
 	Category Category
 	Name string `form:"name" binding:"required"`
 	Description string `form:"title" binding:"required"`
