@@ -11,13 +11,25 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 )
 
 //USERモデル
 type User struct {
 	gorm.Model
+	ID uint64 `json:"id" gorm:"primaryKey; autoIncrement"`
 	Username string `form:"username" binding:"required" gorm:"unique;not null"`
 	Password string `form:"password" binding:"required"`
+	EmailAddress string
+	FirstName string
+	FirstNameKana string
+	LastName string
+	LastNameKana string
+	LoginAt time.Time
+	Birthday time.Time
+	Occupation string
+	Sex string
+	Rank uint8
 }
 
 func gormConnect() *gorm.DB {
@@ -135,7 +147,7 @@ func LoginAction(c * gin.Context) {
 }
 
 
-// Logout is a handler that parses a form and checks for specific data
+// LogoutAction is a handler that parses a form and checks for specific data
 func LogoutAction(c *gin.Context) {
 	session := sessions.Default(c)
 	user := session.Get("user")
