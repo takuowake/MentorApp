@@ -7,7 +7,7 @@ import (
 
 type Order struct {
 	gorm.Model
-	ID uint64 `json:"id" gorm:"primaryKey" gorm:"autoIncrement"`
+	ID uint64 `json:"id" gorm:"primaryKey; autoIncrement"`
 	UserID   uint64
 	User     User
 	Status string
@@ -16,7 +16,7 @@ type Order struct {
 }
 
 type OrdersDetail struct {
-	ID uint64 `json:"id" gorm:"primaryKey" gorm:"autoIncrement"`
+	ID uint64 `json:"id" gorm:"primaryKey; autoIncrement"`
 	PlanID string
 	Plan Plan
 	OrderID string

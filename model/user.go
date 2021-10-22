@@ -17,7 +17,7 @@ import (
 //USERモデル
 type User struct {
 	gorm.Model
-	ID uint64 `json:"id" gorm:"primaryKey" gorm:"autoIncrement"`
+	ID uint64 `json:"id" gorm:"primaryKey; autoIncrement"`
 	Username string `form:"username" binding:"required" gorm:"unique;not null"`
 	Password string `form:"password" binding:"required"`
 	EmailAddress string

@@ -7,7 +7,7 @@ import (
 
 type Plan struct {
 	gorm.Model
-	ID uint64 `json:"id" gorm:"primaryKey" gorm:"autoIncrement"`
+	ID uint64 `json:"id" gorm:"primaryKey; autoIncrement"`
 	UserID uint64
 	User User
 	CategoryID uint8
