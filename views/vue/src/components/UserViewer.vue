@@ -18,7 +18,12 @@ export default {
   },
   methods: {
     getData() {
-      axios({method: "GET", url: "http://127.0.0.1:8090/welcome",  headers: {"content-type": "text/plain" }})
+      axios({
+        method: "GET",
+        url: "http://127.0.0.1:8090/welcome",
+        headers: {
+          'content-type': 'text/plain',
+        }})
           .then((data) => {
             // Signed in
             // const user = user;

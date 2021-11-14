@@ -6,13 +6,33 @@ import (
 	"MentorApp/controller/top"
 	"MentorApp/controller/user"
 	"MentorApp/model"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"time"
 )
 
 func GetRouter() *gin.Engine {    // *gin.Engineの表記は返り値の型
 	router := gin.Default()
+	// Cors settings
+	router.Use(cors.New(cors.Config{
+		AllowOrigins: []string{
+			"http://127.0.0.1:8090/welcome",
+			"http://localhost:8080",
+			"http://localhost:",
+			"http://localhost:8090",
+			"http://localhost:8080/welcome",
+		},
+		AllowMethods: []string{
+			"GET",
+		},
+		AllowHeaders: []string{
+			"content-type",
+		},
+		AllowCredentials: true,
+		MaxAge: 24 * time.Hour,
+	}))
 	router.LoadHTMLGlob("views/static/*.html")
 
 	router.GET("/", top.IndexDisplayAction)
@@ -29,7 +49,6 @@ func GetRouter() *gin.Engine {    // *gin.Engineの表記は返り値の型
 		authUserGroup.GET("/me", me)
 		authUserGroup.GET("/status", status)
 	}
-
 	router.GET("/welcome", controller.ShowUser)
 	router.GET("/login", model.LoginModel)
 	router.POST("/login", model.LoginAction)
