@@ -1,6 +1,7 @@
 package server
 
 import (
+	"MentorApp/controller"
 	"MentorApp/controller/admin"
 	"MentorApp/controller/top"
 	"MentorApp/controller/user"
@@ -29,6 +30,7 @@ func GetRouter() *gin.Engine {    // *gin.Engineの表記は返り値の型
 		authUserGroup.GET("/status", status)
 	}
 
+	router.GET("/welcome", controller.ShowUser)
 	router.GET("/login", model.LoginModel)
 	router.POST("/login", model.LoginAction)
 	router.GET("/signup", model.SignUpModel)
@@ -43,6 +45,9 @@ func GetRouter() *gin.Engine {    // *gin.Engineの表記は返り値の型
 	router.GET("/user/resign", user.UserResignAction)
 	router.GET("/admin", admin.AdminPlanManageAction)
 	router.GET("/admin/mypage", admin.AdminMyPageAction)
+	router.GET("/api/v1/hello", func(c *gin.Context) {
+		c.String(200, `{"message":"hello, hello, hello"}`)
+	})
 
 	return router
 }

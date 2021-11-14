@@ -1,15 +1,14 @@
 package model
 
 import (
+	"MentorApp/database"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
-	"github.com/joho/godotenv"
 	_ "github.com/joho/godotenv/autoload"
 	"log"
 	"net/http"
-	"os"
 	"strings"
 	"time"
 )
@@ -32,39 +31,11 @@ type User struct {
 	Rank uint8
 }
 
-func gormConnect() *gorm.DB {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal(err)
-	}
-	DBMS := os.Getenv("MentorApp_DBMS")
-	USER := os.Getenv("MentorApp_USER")
-	PASS := os.Getenv("MentorApp_PASS")
-	DBNAME := os.Getenv("MentorApp_DBNAME")
-	CONNECT := USER + ":" + PASS + "@/" + DBNAME + "?parseTime=true"
-	db, err := gorm.Open(DBMS, CONNECT)
-	if err != nil {
-		panic(err.Error())
-	}
-	return db
-}
-
-//DBの初期化
-func dbInit() {
-	db := gormConnect()
-	/*Connection開放*/
-	defer db.Close()
-	db.AutoMigrate(&User{})
-}
-
 //ユーザー登録処理
 func createUser(username string, password string) []error {
-	dbInit()
 	passwordEncrypt, _ := PasswordEncrypt(password)
-	db := gormConnect()
-	defer db.Close()
 	/*Insert処理*/
-	if err := db.Create(&User{Username: username, Password: passwordEncrypt}).GetErrors(); err != nil {
+	if err := database.DB.Create(&User{Username: username, Password: passwordEncrypt}).GetErrors(); err != nil {
 		return err
 	}
 	return nil
@@ -72,10 +43,8 @@ func createUser(username string, password string) []error {
 
 //ユーザーを一件取得
 func getUser(username string) User {
-	db := gormConnect()
 	var user User
-	db.First(&user, "username = ?", username)
-	db.Close()
+	database.DB.First(&user, "username = ?", username)
 	return user
 }
 
