@@ -13,16 +13,12 @@ import (
 	"time"
 )
 
-func GetRouter() *gin.Engine {    // *gin.Engineの表記は返り値の型
+func GetRouter() *gin.Engine {
 	router := gin.Default()
-	// Cors settings
+	/*Cors settings*/
 	router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
-			"http://127.0.0.1:8090/welcome",
 			"http://localhost:8080",
-			"http://localhost:",
-			"http://localhost:8090",
-			"http://localhost:8080/welcome",
 		},
 		AllowMethods: []string{
 			"GET",
@@ -37,11 +33,11 @@ func GetRouter() *gin.Engine {    // *gin.Engineの表記は返り値の型
 
 	router.GET("/", top.IndexDisplayAction)
 
-	/*SessionCookieの設定*/
+	/*SessionCookie settings*/
 	store := sessions.NewCookieStore([]byte("secret"))
 	router.Use(sessions.Sessions("mysession", store))
 
-	router.GET("/logout", model.LogoutAction)
+	router.GET("/logout", controller.LogoutAction)
 	/*認証済みのアクセス可能なグループ*/
 	authUserGroup := router.Group("/private")
 	authUserGroup.Use(model.AuthRequired)
@@ -51,9 +47,9 @@ func GetRouter() *gin.Engine {    // *gin.Engineの表記は返り値の型
 	}
 	router.GET("/welcome", controller.ShowUser)
 	router.GET("/login", model.LoginModel)
-	router.POST("/login", model.LoginAction)
+	router.POST("/login", controller.LoginAction)
 	router.GET("/signup", model.SignUpModel)
-	router.POST("/signup", model.SignUpAction)
+	router.POST("/signup", controller.SignUpAction)
 	//router.GET("/plan", plan.ListDisplayAction)
 	router.GET("/user", user.UserPlanManageAction)
 	router.GET("/user/add/:id", model.PlanModel)

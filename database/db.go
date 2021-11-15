@@ -1,6 +1,7 @@
 package database
 
 import (
+	"MentorApp/model"
 	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
 	"log"
@@ -26,15 +27,26 @@ func gormConnect() *gorm.DB {
 	return db
 }
 
-// DbInit is
+// DbInit initialize Db.
 func DbInit() *gorm.DB {
 	db := gormConnect()
 	defer db.Close()
+	db.AutoMigrate(
+		&model.User{},
+		&model.Category{},
+		&model.Plan{},
+		&model.Favorite{},
+		&model.Review{},
+		&model.Order{},
+		&model.OrdersDetail{},
+		&model.Chatroom{},
+		&model.ChatroomUser{},
+	)
 	DB = db
 	return db
 }
 
-// Using this function to get a connection, you can create your connection pool here.
+// GetDB gets a connection, you can create your connection pool here.
 func GetDB() *gorm.DB {
 	return DB
 }
