@@ -3,7 +3,6 @@ package server
 import (
 	"MentorApp/controller"
 	"MentorApp/controller/admin"
-	"MentorApp/controller/top"
 	"MentorApp/controller/user"
 	"MentorApp/model"
 	"github.com/gin-contrib/cors"
@@ -15,6 +14,7 @@ import (
 
 func GetRouter() *gin.Engine {
 	router := gin.Default()
+
 	/*Cors settings*/
 	router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
@@ -31,8 +31,6 @@ func GetRouter() *gin.Engine {
 	}))
 	router.LoadHTMLGlob("views/static/*.html")
 
-	router.GET("/", top.IndexDisplayAction)
-
 	/*SessionCookie settings*/
 	store := sessions.NewCookieStore([]byte("secret"))
 	router.Use(sessions.Sessions("mysession", store))
@@ -45,7 +43,8 @@ func GetRouter() *gin.Engine {
 		authUserGroup.GET("/me", me)
 		authUserGroup.GET("/status", status)
 	}
-	router.GET("/welcome", controller.ShowUser)
+	router.GET("/", controller.ShowHome)
+	router.GET("/welcome", model.ShowUser)
 	router.GET("/login", model.LoginModel)
 	router.POST("/login", controller.LoginAction)
 	router.GET("/signup", model.SignUpModel)

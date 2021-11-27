@@ -1,7 +1,6 @@
 package database
 
 import (
-	"MentorApp/model"
 	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
 	"log"
@@ -31,17 +30,6 @@ func gormConnect() *gorm.DB {
 func DbInit() *gorm.DB {
 	db := gormConnect()
 	defer db.Close()
-	db.AutoMigrate(
-		&model.User{},
-		&model.Category{},
-		&model.Plan{},
-		&model.Favorite{},
-		&model.Review{},
-		&model.Order{},
-		&model.OrdersDetail{},
-		&model.Chatroom{},
-		&model.ChatroomUser{},
-	)
 	DB = db
 	return db
 }

@@ -1,10 +1,12 @@
 package model
 
 import (
+	"MentorApp/database"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	_ "github.com/joho/godotenv/autoload"
+	"net/http"
 	"time"
 )
 
@@ -36,3 +38,25 @@ func LoginModel(c *gin.Context) {
 	c.HTML(200, "login.html", gin.H{})
 }
 
+
+func ShowUser(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"name": "user"})
+}
+
+
+//ユーザー登録処理
+func CreateUser(username string, password string) []error {
+	passwordEncrypt, _ := PasswordEncrypt(password)
+	/*Insert処理*/
+	if err := database.DB.Create(User{Username: username, Password: passwordEncrypt}).GetErrors(); err != nil {
+		return err
+	}
+	return nil
+}
+
+//ユーザーを一件取得
+func GetUser(username string) User {
+	var user User
+	database.DB.First(&user, "username = ?", username)
+	return user
+}

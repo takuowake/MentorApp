@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"MentorApp/database"
 	"MentorApp/model"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -9,28 +8,6 @@ import (
 	"net/http"
 	"strings"
 )
-
-func ShowUser(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"name": "hello"})
-}
-
-
-//ユーザー登録処理
-func createUser(username string, password string) []error {
-	passwordEncrypt, _ := model.PasswordEncrypt(password)
-	/*Insert処理*/
-	if err := database.DB.Create(model.User{Username: username, Password: passwordEncrypt}).GetErrors(); err != nil {
-		return err
-	}
-	return nil
-}
-
-//ユーザーを一件取得
-func getUser(username string) model.User {
-	var user model.User
-	database.DB.First(&user, "username = ?", username)
-	return user
-}
 
 //ユーザー登録
 func SignUpAction(c *gin.Context) {
@@ -43,7 +20,7 @@ func SignUpAction(c *gin.Context) {
 		username := c.PostForm("username")
 		password := c.PostForm("password")
 		//登録ユーザーが重複していた場合にはじく処理
-		if err := createUser(username, password); err != nil {
+		if err := model.CreateUser(username, password); err != nil {
 			c.HTML(http.StatusBadRequest, "signup.html", gin.H{"err": err})
 		}
 		c.Redirect(302, "/")
@@ -54,7 +31,7 @@ func SignUpAction(c *gin.Context) {
 //ユーザーログイン
 func LoginAction(c * gin.Context) {
 	//DBから取得したユーザーパスワード（Hash）
-	dbPassword := getUser(c.PostForm("username")).Password
+	dbPassword := model.GetUser(c.PostForm("username")).Password
 	log.Println(dbPassword)
 	//フォームから取得したユーザーパスワード
 	formPassword := c.PostForm("password")

@@ -1,16 +1,21 @@
 <template>
-  <div id="app">
-    <UserViewer/>
-  </div>
+  <v-app>
+    <router-view>
+      <Home/>
+      <UserViewer/>
+    </router-view>
+  </v-app>
 </template>
 
 <script>
+import Home from './components/Home.vue'
 import UserViewer from './components/UserViewer.vue'
 
 export default {
   name: 'App',
   components: {
-    UserViewer
+    Home,
+    UserViewer,
   }
 }
 </script>
