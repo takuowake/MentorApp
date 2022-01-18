@@ -11,7 +11,7 @@ func main() {
 	Migrate(db)
 	defer db.Close()
 	router := server.GetRouter()
-	router.Run(":8090")
+	router.Run(":8080")
 }
 
 func Migrate(db *gorm.DB) {
