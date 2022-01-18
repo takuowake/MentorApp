@@ -8,7 +8,7 @@ import (
 
 func main() {
 	db := database.DbInit()
-	 Migrate(db)
+	Migrate(db)
 	defer db.Close()
 	router := server.GetRouter()
 	router.Run(":8090")

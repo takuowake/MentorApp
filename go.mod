@@ -1,6 +1,7 @@
 module MentorApp
 
 go 1.16
+// +heroku goVersion go1.16
 
 require (
 	github.com/gin-contrib/cors v1.3.1 // indirect

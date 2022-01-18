@@ -1,32 +1,20 @@
 <template>
   <v-app>
-    <router-view>
-      <Home/>
-      <UserViewer/>
-    </router-view>
+    <Menu/>
+    <router-view/>
+    <Footers/>
   </v-app>
 </template>
 
 <script>
-import Home from './components/Home.vue'
-import UserViewer from './components/UserViewer.vue'
+import Menu from './components/Menu.vue'
+import Footers from './components/Footers.vue'
 
 export default {
   name: 'App',
   components: {
-    Home,
-    UserViewer,
+    Menu,
+    Footers
   }
 }
 </script>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

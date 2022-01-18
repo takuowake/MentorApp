@@ -18,10 +18,11 @@ func GetRouter() *gin.Engine {
 	/*Cors settings*/
 	router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
-			"http://localhost:8080",
+			"http://localhost:8081",
 		},
 		AllowMethods: []string{
 			"GET",
+			"POST",
 		},
 		AllowHeaders: []string{
 			"content-type",
@@ -46,7 +47,8 @@ func GetRouter() *gin.Engine {
 	router.GET("/", controller.ShowHome)
 	router.GET("/welcome", model.ShowUser)
 	router.GET("/login", model.LoginModel)
-	router.POST("/login", controller.LoginAction)
+	router.POST("/login", controller.SimpleLoginAction)
+	//router.POST("/login", controller.LoginAction)
 	router.GET("/signup", model.SignUpModel)
 	router.POST("/signup", controller.SignUpAction)
 	//router.GET("/plan", plan.ListDisplayAction)

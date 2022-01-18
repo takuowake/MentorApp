@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"MentorApp/database"
 	"MentorApp/model"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -29,8 +30,9 @@ func SignUpAction(c *gin.Context) {
 
 
 //ユーザーログイン
-func LoginAction(c * gin.Context) {
-	//DBから取得したユーザーパスワード（Hash）
+func LoginAction(c *gin.Context) {
+	//DBから取得したユーザーパスワード（Has
+	//h）
 	dbPassword := model.GetUser(c.PostForm("username")).Password
 	log.Println(dbPassword)
 	//フォームから取得したユーザーパスワード
@@ -66,6 +68,31 @@ func LoginAction(c * gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Successfully authenticated user"})
 }
+
+func SimpleLoginAction(c *gin.Context) {
+	//c.JSON(http.StatusOK, gin.H{"message": "s"})
+	var login model.Login
+	var user model.User
+	c.BindJSON(&login)
+
+	if login.Email != "" && login.Password != "" {
+		// INSERT INTO "users" (name) VALUES (user.Name);
+		database.DB.Where("username = ?", login.Email).First(&user)		// Display error
+		if (model.User{} == user) {
+			c.JSON(401, gin.H{"error": "Email Address is not found."})
+		}
+		c.JSON(200, gin.H{"user": user})
+	} else {
+		// Display error
+		c.JSON(401, gin.H{"error": "Fields are empty"})
+	}
+
+	// curl -i -X POST -H "Content-Type: application/json" -d "{ \"firstname\": \"Thea\", \"lastname\": \"Queen\" }" http://localhost:8080/api/v1/users
+
+}
+
+
+
 
 
 // LogoutAction is a handler that parses a form and checks for specific data

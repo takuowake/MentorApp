@@ -28,6 +28,11 @@ type User struct {
 	Rank uint8
 }
 
+type Login struct {
+	Email string `form:"username" binding:"required"`
+	Password string `form:"password" binding:"required"`
+}
+
 //ユーザー登録画面
 func SignUpModel(c *gin.Context) {
 	c.HTML(200, "signup.html", gin.H{})

@@ -29,7 +29,7 @@ func gormConnect() *gorm.DB {
 // DbInit initialize Db.
 func DbInit() *gorm.DB {
 	db := gormConnect()
-	defer db.Close()
+	db.LogMode(true)
 	DB = db
 	return db
 }
